@@ -39,6 +39,7 @@ type (
 		Tags       []string // Docker build tags
 		Args       []string // Docker build args
 		Repo       string   // Docker build repository
+		Pull      string    // Docker build pull flag ("true" or "false")
 	}
 
 	// Plugin defines the Docker plugin parameters.
@@ -146,7 +147,7 @@ func commandInfo() *exec.Cmd {
 func commandBuild(build Build) *exec.Cmd {
 	cmd := exec.Command(
 		dockerExe, "build",
-		"--pull=true",
+		"--pull=", build.Pull,
 		"--rm=true",
 		"-f", build.Dockerfile,
 		"-t", build.Name,
