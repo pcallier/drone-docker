@@ -109,6 +109,13 @@ func main() {
 			Usage:  "docker repository",
 			EnvVar: "PLUGIN_REPO",
 		},
+		cli.StringFlag{
+			Name:   "pull",
+			Usage:  "pull layers on build",
+			Value:  "false",
+			EnvVar: "PLUGIN_BUILD_PULL"
+		},
+		
 
 		// secret variables
 		cli.StringFlag{
@@ -153,6 +160,7 @@ func run(c *cli.Context) {
 			Tags:       c.StringSlice("tags"),
 			Args:       c.StringSlice("args"),
 			Repo:       c.String("repo"),
+			Pull:	    c.String("pull"),
 		},
 		Daemon: Daemon{
 			Registry:      c.String("docker.registry"),
